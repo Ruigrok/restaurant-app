@@ -3,23 +3,27 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var nodemon = require("nodemon");
+
 
 // Sets up the Express App
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+// Sets up the Express app to handle data parsing (json)
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json 
+app.use(bodyParser.json())
+ 
+app.use(function (req, res) {
+  res.setHeader('Content-Type', 'text/plain')
+  res.write('you posted:\n')
+  res.end(JSON.stringify(req.body, null, 2))
+})
 
-// Star Wars Characters (DATA)
-// =============================================================
-var tables = [];
-var reservations = [];
-var waitlist = [];
 
 // Routes
 // =============================================================
@@ -34,7 +38,7 @@ app.get("/tables", function(req, res) {
 });
 
 app.get("/reserve", function(req, res) {
-  res.sendFile(path.join(__dirname, "reservations.html"));
+  res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
 // Routes to API links to JSON data
@@ -56,6 +60,12 @@ app.post("/api/new", function(req, res) {
 
   //res.json(newReservation);
 });
+
+app.post("/api/tables", function(req, res) {
+  var newreservation = req.body;
+  reservations.push(newReservation);
+  res.json(newReservation);
+})
 
 // Starts the server to begin listening
 // =============================================================

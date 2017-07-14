@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurant - Tables</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center"><strong>Hot Restaurant</strong></h1>
+            <h2 class="text-center">Current Reservation and Waiting List</h2>
+            <div class="text-center">
+                <a href="/reserve">
+                    <button type="button" class="btn btn-primary text-center" id="makeRes">Make Reservation</button></a>
+                <a href="/">
+                    <button type="submit" class="btn btn-primary text-center" id="home">Home</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Current Reservations</div>
+            <div class="panel-body" id="currentRes">
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Waiting List</div>
+            <div class="panel-body" id="currentWait">
+            </div>
+        </div>
+    </div>
+
+        <footer class="footer">
+      <div class="container">
+        <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> </p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript">
+        $.get("/api/tables", function (data) {
+            if (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var res = ("<span>");
+
+                    res.append(data);
+                }
+            } else {
+                $("#currentRes").text("No current reservations");
+            }
+        })
+
+        $.get("/api/waitlist", function (data) {
+            if (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var waiting = ("<span>");
+
+                    waiting.append(data);
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>
