@@ -37,35 +37,50 @@
         </div>
     </div>
 
-        <footer class="footer">
-      <div class="container">
-        <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> </p>
-      </div>
+    <footer class="footer">
+        <div class="container">
+            <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>                </p>
+        </div>
     </footer>
 
 
     <script type="text/javascript">
-        $.get("/api/tables", function (data) {
-            if (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var res = ("<span>");
+        $.get("/api/tables", function (tableData) {
 
-                    res.append(data);
+            if (tableData) {
+                for (var i = 0; i < tableData.length; i++) {
+                    var newTable = $('<div>');
+                    newTable.addClass('well');
+                    newTable.attr('id', 'tableWell-' + i + 1);
+                    $("#currentRes").append(newTable);
+
+                    var tableNumber = i+1;
+
+                    $("#tableWell-" + i + 1).append('<h3><span class="label label-primary">' +
+                        tableNumber + "</span> | " + tableData[i].uniqueID + "</h3>");
+
                 }
             } else {
                 $("#currentRes").text("No current reservations");
             }
-        })
+        });
 
-        $.get("/api/waitlist", function (data) {
-            if (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var waiting = ("<span>");
+        $.get("/api/waitlist", function (waitlistData) {
 
-                    waiting.append(data);
+            if (waitlistData) {
+                for (var i = 0; i < waitlistData.length; i++) {
+                    var newWait = $("<div>");
+                    newWait.addClass("well");
+                    newWait.attr('id', 'waitWell-' + i + 1);
+                    $('#currentWait').append(newWait);
+
+                    var waitNumber = i+1;
+
+                    $("#waitWell-" + i + 1).append('<h3><span class="label label-primary">' +
+                        waitNumber + "</span> | " + waitlistData[i].uniqueID + "</h3>");
                 }
             }
-        })
+        });
     </script>
 
 

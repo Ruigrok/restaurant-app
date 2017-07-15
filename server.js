@@ -17,29 +17,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json 
 app.use(bodyParser.json())
- 
-app.use(function (req, res) {
-  res.setHeader('Content-Type', 'text/plain')
-  res.write('you posted:\n')
-  res.end(JSON.stringify(req.body, null, 2))
-})
+
+require('./app/routing/api-routes.js')(app);
+require('./app/routing/html-routes.js')(app);
 
 
 // Routes
-// =============================================================
-
-// Routes to different pages
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "home.html"));
-});
-
-app.get("/tables", function(req, res) {
-  res.sendFile(path.join(__dirname, "tables.html"));
-});
-
-app.get("/reserve", function(req, res) {
-  res.sendFile(path.join(__dirname, "reserve.html"));
-});
 
 // Routes to API links to JSON data
 app.get("/api/tables", function(req, res) {
@@ -51,21 +34,6 @@ app.get("/api/waitlist", function(req, res) {
 });
 
 
-
-// Create New Characters - takes in JSON input
-app.post("/api/new", function(req, res) {
-  var newreservation = req.body;
-
-  reservations.push(newReservation);
-
-  //res.json(newReservation);
-});
-
-app.post("/api/tables", function(req, res) {
-  var newreservation = req.body;
-  reservations.push(newReservation);
-  res.json(newReservation);
-})
 
 // Starts the server to begin listening
 // =============================================================
