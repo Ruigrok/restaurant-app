@@ -15,33 +15,43 @@
     <div class="container">
         <div class="jumbotron">
             <h1 class="text-center"><strong>Hot Restaurant</strong></h1>
-            <h2 class="text-center">Current Reservation and Waiting List</h2>
+            <h3 class="text-center">Current Reservations and Waiting List</h3>
+            <br>
             <div class="text-center">
                 <a href="/reserve">
-                    <button type="button" class="btn btn-primary text-center" id="makeRes">Make Reservation</button></a>
+                    <button type="button" class="btn btn-lg btn-danger" id="makeRes">
+                        <span class="glyphicon glyphicon-credit-card"></span> Make Reservation</button></a>
                 <a href="/">
-                    <button type="submit" class="btn btn-primary text-center" id="home">Home</button></a>
+                    <button type="submit" class="btn btn-lg btn-default" id="home">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </button></a>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">Current Reservations</div>
-            <div class="panel-body" id="currentRes">
+        <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <h4 class="panel-title">Current Reservations</h4>
+                </div>
+                <div class="panel-body" id="currentRes">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <h4 class="panel-title">Waiting List</h4>
+                </div>
+                <div class="panel-body" id="currentWait">
+                </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Waiting List</div>
-            <div class="panel-body" id="currentWait">
-            </div>
         </div>
-    </div>
+        <footer class="footer">
+            <div class="container">
+                <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>                    </p>
+            </div>
+        </footer>
 
-    <footer class="footer">
-        <div class="container">
-            <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>                </p>
-        </div>
-    </footer>
+    </div>
 
 
     <script type="text/javascript">
@@ -54,7 +64,7 @@
                     newTable.attr('id', 'tableWell-' + i + 1);
                     $("#currentRes").append(newTable);
 
-                    var tableNumber = i+1;
+                    var tableNumber = i + 1;
 
                     $("#tableWell-" + i + 1).append('<h3><span class="label label-primary">' +
                         tableNumber + "</span> | " + tableData[i].uniqueID + "</h3>");
@@ -74,7 +84,7 @@
                     newWait.attr('id', 'waitWell-' + i + 1);
                     $('#currentWait').append(newWait);
 
-                    var waitNumber = i+1;
+                    var waitNumber = i + 1;
 
                     $("#waitWell-" + i + 1).append('<h3><span class="label label-primary">' +
                         waitNumber + "</span> | " + waitlistData[i].uniqueID + "</h3>");

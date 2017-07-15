@@ -15,12 +15,17 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="text-center"><strong>Hot Restaurant</strong></h1>
-			<h2 class="text-center"> Make your reservation</h2>
+			<h3 class="text-center"> Make your reservation</h3>
+			<br>
 			<div class="text-center">
 				<a href="/tables">
-					<button type="button" class="btn btn-primary text-center" id="viewTables">View Tables</button></a>
+					<button type="button" class="btn btn-lg btn-primary" id="viewTables">
+						<span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
 				<a href="/">
-					<button type="submit" class="btn btn-primary text-center" id="home">Home</button></a></div>
+					<button type="submit" class="btn btn-lg btn-default" id="home">
+						<span class="glyphicon glyphicon-home"></span>
+					</button></a>
+			</div>
 		</div>
 
 		<div class="row">
@@ -84,7 +89,16 @@
 		$.post("/api/tables", newReservation)
 			.done(function (data) {
 
-				alert("Yay! You are officially booked.");
+				if (data) {
+					alert("Your table has been reserved!");
+				} else {
+					alert("You've been placed on the waitlist");
+				}
+
+				$("#reserve_name").val("");
+				$("#reserve_phone").val("");
+				$("#reserve_email").val("");
+				$("#reserve_uniqueID").val("");
 
 			});
 	})
@@ -92,4 +106,3 @@
 </script>
 
 </html>
-
