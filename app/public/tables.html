@@ -28,26 +28,26 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                <h4 class="panel-title">Current Reservations</h4>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Current Reservations</h4>
+                    </div>
+                    <div class="panel-body" id="currentRes">
+                    </div>
                 </div>
-                <div class="panel-body" id="currentRes">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Waiting List</h4>
+                    </div>
+                    <div class="panel-body" id="currentWait">
+                    </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                <h4 class="panel-title">Waiting List</h4>
-                </div>
-                <div class="panel-body" id="currentWait">
-                </div>
-            </div>
-        </div>
         </div>
         <footer class="footer">
             <div class="container">
-                <p><a href="#" id="clear">Clear Table</a> |<a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>                    </p>
+                <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>                    </p>
             </div>
         </footer>
 
@@ -68,7 +68,6 @@
 
                     $("#tableWell-" + i + 1).append('<h3><span class="label label-primary">' +
                         tableNumber + "</span> | " + tableData[i].uniqueID + "</h3>");
-
                 }
             } else {
                 $("#currentRes").text("No current reservations");
@@ -90,6 +89,26 @@
                         waitNumber + "</span> | " + waitlistData[i].uniqueID + "</h3>");
                 }
             }
+        });
+
+
+
+
+        function clearTable() {
+
+            var currentURL = window.location.origin;
+            $.ajax({ url: currentURL + "/api/clear", method: "POST" });
+
+        }
+
+        $("#clear").on("click", function () {
+            alert("Clear!");
+
+            $.post('/api/clear');
+
+            // Refresh the page after data is cleared
+            location.reload();
+
         });
     </script>
 
